@@ -52,11 +52,13 @@ class Integral<T, typename std::enable_if_t<std::is_integral_v<T>>> {
   }
 
   void input_in(std::istream& is) {
-    is >> value;
+    long long val;
+    is >> val;
+    value = val;
   }
 
   void output_on(std::ostream& os) const {
-    os << value;
+    os << (long long)value;
   }
 
   friend std::istream& operator>>(std::istream& is, Integral& rhs) {
@@ -111,7 +113,8 @@ int main() {
   assert(!b == 1);
   assert(a && b == 0);
   assert(a || b == 1);
-  Integral<char> c;
+
+  Integral<uint32_t> c;
   std::cout << "Input value: ";
   std::cin >> c;
   std::cout << "Output value: " << c << '\n';
