@@ -1,22 +1,17 @@
 #include "Axis.hpp"
 #include "Integral.hpp"
 
-#include <array>
-
-template <typename T, typename Enable = void>
-class BasisVector;
-
-template <typename T>
-class BasisVector<T, typename std::enable_if_t<std::is_integral_v<T>>> {
+class BasisVector {
+ public:
+  using Length = Integral<uint64_t>;
  private:
-  std::array<Axis, 3> axes { Axes::kX, Axes::kY, Axes::kZ };
-  std::array<Integral<T>, 3> dimensions;
+  Axis axis;
+  Length length;
  public:
   BasisVector() = default;
-  BasisVector(Integral<T> const& x, Integral<T> const& y, Integral<T> const& z) : dimensions { x, y, z  } { }
+  BasisVector(Axis const& axis, Length const& length) : axis { axis }, length { length } { }
   void output_on(std::ostream& os) const {
-    for (size_t index { }; index < axes.size(); ++index)
-      os << axes.at(index) << ": " << dimensions.at(index) << '\n';
+    os << axis << ": " << length;
   }
   friend std::ostream& operator<<(std::ostream& os, BasisVector const& vec) {
     vec.output_on(os);

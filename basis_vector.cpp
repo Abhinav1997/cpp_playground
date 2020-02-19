@@ -1,7 +1,12 @@
 #include "BasisVector.hpp"
 
+#include <array>
+
 int main() {
-  BasisVector<int> bv {1, 4, 7};
+  std::array<BasisVector, 3> dims { BasisVector{Axes::kX, 1},
+                                    BasisVector{Axes::kY, 4},
+                                    BasisVector{Axes::kZ, 7} };
   std::cout << "Vector dimensions: \n";
-  std::cout << bv;
+  for (auto const& dim : dims)
+    std::cout << dim << '\n';
 }
