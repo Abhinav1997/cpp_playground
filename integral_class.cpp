@@ -1,5 +1,4 @@
-#include <assert.h>
-
+#include <cassert>
 #include <iostream>
 
 template <typename T, typename Enable = void>
@@ -9,10 +8,13 @@ template <typename T>
 class Integral<T, typename std::enable_if_t<std::is_integral_v<T>>> {
  private:
   T value;
+
  public:
   Integral() = default;
+
   template <typename U>
-  Integral(const U& value) : value { static_cast<T>(value) } { }
+  Integral(U const& value) : value{static_cast<T const&>(value)} { }
+
   Integral operator*(const Integral& rhs) const {
     return value * rhs.value;
   }
@@ -49,11 +51,11 @@ class Integral<T, typename std::enable_if_t<std::is_integral_v<T>>> {
     return *this;
   }
 
-  void input_in(std::istream &is) {
+  void input_in(std::istream& is) {
     is >> value;
   }
 
-  void output_on(std::ostream &os) const {
+  void output_on(std::ostream& os) const {
     os << value;
   }
 
@@ -87,7 +89,6 @@ class Integral<T, typename std::enable_if_t<std::is_integral_v<T>>> {
     return lhs.value != rhs.value;
   }
 };
-
 
 int main() {
   std::cout << "Begin test...\n";
