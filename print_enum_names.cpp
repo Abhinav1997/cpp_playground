@@ -1,3 +1,4 @@
+#include <array>
 #include <iostream>
 
 enum class Elements {
@@ -34,8 +35,9 @@ public:
 };
 
 int main() {
-  const Element value_one { Elements::kValueOne };
-  const Element value_two { Elements::kValueTwo };
-  const Element value_three { Elements::kValueThree };
-  std::cout << value_one << ' ' << value_two << ' ' << value_three << '\n';
+  const std::array<Element, 3> values { Elements::kValueOne,
+                                        Elements::kValueTwo,
+                                        Elements::kValueThree };
+  for (const auto& value : values)
+    std::cout << value << '\n';
 }
