@@ -12,7 +12,7 @@ class Integral<T, typename std::enable_if_t<std::is_integral_v<T>>> {
  public:
   Integral() = default;
   template <typename U>
-  Integral(const U& value) : value { static_cast<T>(value) } {};
+  Integral(const U& value) : value { static_cast<T>(value) } { }
   Integral operator*(const Integral& rhs) const {
     return value * rhs.value;
   }
