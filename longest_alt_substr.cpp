@@ -24,33 +24,40 @@ std::string longestSubstring(const std::string& digits) {
   size_t final_length {};
   size_t curr_length {};
   std::string longest_substr;
+  std::string::const_iterator store_iter;
   Type prev_type { Type::kNeither };
   auto iter { digits.begin() };
   for (; iter != digits.end(); ++iter) {
     if (type(*iter) != prev_type) {
-      // Increment length if current digit type is different to previous type
+      // Increment length if the current digit type is different
+      // to the previous digit type
       ++curr_length;
     } else {
-      // If the type of the digit is same as previous type
-      // And if the length is greater than length of last recorded substring
-      // Change the longest substring to the current substring
+      // If the current digit type is the same as the previous digit type and if
+      // the length is greater than the length of the last recorded substring,
+      // store the new iterator pointing to the current longest substring
       if (curr_length > final_length) {
         final_length = curr_length;
-        longest_substr = std::string(iter - curr_length, iter);
+        store_iter = iter;
       }
-      // Reset length counter when previous digit type is same as current digit type
+      // Reset the length counter when the previous digit type
+      // is the same as the current digit type
       curr_length = 1;
     }
     prev_type = type(*iter);
   }
-  // Check for substring length at the end of the string
-  if (curr_length > final_length)
-    longest_substr = std::string(iter - curr_length, iter);
+  // Check for the length of the substring at the end of the digits string
+  if (curr_length > final_length) {
+    final_length = curr_length;
+    store_iter = iter;
+  }
+  // Assign the longest found substring using the stored iterator
+  longest_substr = std::string(store_iter - final_length, store_iter);
   return longest_substr;
 }
 
 int main() {
-  std::cout << longestSubstring("0123254363511134343") << '\n';
+  std::cout << longestSubstring("111111") << '\n';
   std::cout << longestSubstring("111112325436351113434343434666") << '\n';
   std::cout << longestSubstring("111112325436351113434343434") << '\n';
   std::cout << longestSubstring("1234567890") << '\n';
